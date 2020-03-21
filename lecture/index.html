@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <title>Document</title>
   </head>
   <body>
     <div id="root"></div>
 
-    <script>
+    <script type="text/babel">
       const e = React.createElement;
 
       class LikeButton extends React.Component {
@@ -22,22 +23,42 @@
         }
 
         render() {
-          return e(
-            "button",
-            {
-              onClick: () => {
+          return (
+            <button
+              type='submit'
+              onClick={() => {
                 this.setState({ liked: !this.state.liked });
-              },
-              type: "submit"
-            },
-            this.state.liked === true ? "Liked" : "Like"
-          ); //<button> Like </button>
+              }}
+            >
+              {this.state.liked === true ? "Liked" : "Like"}
+            </button>
+            // JSX ( js + xml )
+          );
+
+          //   e(
+          //     "button",
+          //     {
+          //       onClick: () => {
+          //         this.setState({ liked: !this.state.liked });
+          //       },
+          //       type: "submit"
+          //     },
+          //     this.state.liked === true ? "Liked" : "Like"
+          //   ); //<button> Like </button>
         }
       }
     </script>
 
-    <script>
-      ReactDOM.render(e(LikeButton), document.querySelector("#root"));
+    <script type="text/babel">
+      ReactDOM.render(
+        <div>
+          <LikeButton />
+          <LikeButton />
+          <LikeButton />
+          <LikeButton />
+        </div>,
+        document.querySelector("#root")
+      );
     </script>
   </body>
 </html>
