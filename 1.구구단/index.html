@@ -16,6 +16,8 @@
         constructor(props) {
           super(props);
           this.state = {
+            prevFirst: "",
+            prevSecond: "",
             first: Math.ceil(Math.random() * 9),
             second: Math.ceil(Math.random() * 9),
             value: "",
@@ -29,6 +31,8 @@
           if (parseInt(this.state.value) === this.state.first * this.state.second) {
             this.setState({
               result: "정답",
+              prevFirst: this.state.first,
+              prevSecond: this.state.second,
               first: Math.ceil(Math.random() * 9),
               second: Math.ceil(Math.random() * 9),
               resultNum: this.state.value,
@@ -37,6 +41,8 @@
           } else {
             this.setState({
               result: "땡",
+              prevFirst: this.state.first,
+              prevSecond: this.state.second,
               resultNum: this.state.value,
               value: ""
             });
@@ -47,19 +53,17 @@
 
         render() {
           return (
-            <div>
+            <>
+              {this.state.first}곱하기 {this.state.second}는?
+              <form onSubmit={this.onSubmit}>
+                <input type='number' value={this.state.value} onChange={this.onChange} />
+                <button> 입력! </button>
+              </form>
               <div>
-                {this.state.first}곱하기 {this.state.second}는?
-                <form onSubmit={this.onSubmit}>
-                  <input type='number' value={this.state.value} onChange={this.onChange} />
-                  <button> 입력! </button>
-                </form>
-                <div>
-                  {this.state.result &&
-                    `${this.state.first} X ${this.state.second} =  ${this.state.resultNum} ${this.state.result}`}
-                </div>
+                {this.state.result &&
+                  `${this.state.prevFirst} X ${this.state.prevSecond} =  ${this.state.resultNum} ${this.state.result}`}
               </div>
-            </div>
+            </>
           );
         }
       }
