@@ -1,6 +1,5 @@
 const React = require("react");
 const { useState, useRef } = React;
-const { Component } = React;
 
 const WordRelay = () => {
   const [word, setWord] = useState("끝말잇기");
@@ -22,14 +21,14 @@ const WordRelay = () => {
   };
 
   const onChangeInput = (e) => {
-    this.setState({ value: e.target.value });
+    setValue(e.target.value);
   };
 
   return (
     <>
       <div>{word}</div>
       <form onSubmit={onSubmitForm}>
-        <input type='text' ref={inputRef} value={state.value} onChange={onChangeInput} />
+        <input type='text' ref={inputRef} value={value} onChange={onChangeInput} />
         <button type='submit'>입력!</button>
       </form>
       <div>{result}</div>
