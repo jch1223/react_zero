@@ -1,5 +1,5 @@
-const React = require("react");
-const { Component } = React;
+import React, { Component } from "react";
+import Try from "./Try";
 
 const { hot } = require("react-hot-loader/root");
 
@@ -27,7 +27,7 @@ class NumberBaseball extends Component {
         <div>시도 : {this.state.tires.length}</div>
         <ul>
           {["1", "2", "3", "4", "5ddsdf3"].map((item) => {
-            return <li key={item}>{item}</li>;
+            return <Try value={item} key={item} />;
           })}
         </ul>
       </>
@@ -35,4 +35,4 @@ class NumberBaseball extends Component {
   }
 }
 
-module.exports = hot(NumberBaseball);
+export default hot(NumberBaseball);
