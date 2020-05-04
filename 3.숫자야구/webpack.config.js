@@ -1,6 +1,8 @@
 const path = require("path");
 const webpack = require("webpack");
 
+// process.env.NODE_ENV = "production"; // 배포모드
+
 module.exports = {
   name: "numberbaseball-setting",
   mode: "development", // 실서비스 : production
