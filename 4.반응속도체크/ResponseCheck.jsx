@@ -7,7 +7,23 @@ class ResponseCheck extends Component {
     result: [],
   };
 
-  onClickScreen = () => {};
+  onClickScreen = () => {
+    const { state, message, result } = this.state;
+    if (state === "waiting") {
+      this.setState({
+        state: "ready",
+        message: "초록색이 되면 클릭하세요",
+      });
+      setTimeout(() => {
+        this.setState({
+          state: "now",
+          message: "지금 클릭",
+        });
+      }, Math.floor(Math.random() * 1000) + 2000); // 2~3초 랜덤
+    } else if (state === "ready") {
+    } else if (state === "now") {
+    }
+  };
 
   renderAverage = () => {
     return this.state.result.length === 0 ? null : (
