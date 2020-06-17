@@ -74,20 +74,23 @@ class ResponseCheck extends Component {
         >
           {this.state.message}
         </div>
-        {()=>{
-          if(result.length === 0){
-            return null
-          }else {
-            return <>
-            <div>
-              평균 시간 :
-              {this.state.result.reduce((a, c) => a + c) / this.state.result.length}
-              ms
-            </div>
-            <button onClick={this.onReset}>리셋</button>
-          </>
+        {(() => {
+          if (result.length === 0) {
+            return null;
+          } else {
+            return (
+              <>
+                <div>
+                  평균 시간 :
+                  {this.state.result.reduce((a, c) => a + c) /
+                    this.state.result.length}
+                  ms
+                </div>
+                <button onClick={this.onReset}>리셋</button>
+              </>
+            );
           }
-        }()}
+        })()}
         {/* {this.renderAverage()} */}
       </>
     );

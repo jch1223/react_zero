@@ -1,6 +1,9 @@
-const React = require("react");
-const ReactDom = require("react-dom");
+import React from "react";
+import ReactDom from "react-dom";
+import { hot } from "react-hot-loader";
 
 import NumberBaseball from "./NumberBaseball";
 
-ReactDom.render(<NumberBaseball />, document.querySelector("#root"));
+const Hot = hot(NumberBaseball);
+
+ReactDom.render(<Hot />, document.querySelector("#root"));
