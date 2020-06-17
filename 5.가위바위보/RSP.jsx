@@ -3,43 +3,78 @@ import React, { Component } from "react";
 const rspCoord = {
   rock: "0",
   scissor: "-142px",
-  paper: "-248px",
+  paper: "-284px",
 };
 
-const score = {
-  rock: 1,
-  scissor: 0,
+const scores = {
+  rock: 0,
+  scissor: 1,
   paper: -1,
+};
+
+const computerChoice = (imgCoord) => {
+  return Object.entries(rspCoord).find((v) => {
+    return v[1] === imgCoord;
+  })[0];
 };
 
 class RSP extends Component {
   state = {
     result: "",
-    imgCoord: 0,
+    imgCoord: "0",
     score: 0,
   };
 
   interval;
 
   componentDidMount() {
-    const { imgCoord } = this.state;
-
-    this.interval = setInterval(() => {
-      if (imgCoord === rspCoord.rock) {
-        this.setState({ imgCoord: rspCoord.scissor });
-      } else if (imgCoord === rspCoord.scissor) {
-        this.setState({ imgCoord: rspCoord.paper });
-      } else if (imgCoord === rspCoord.paper) {
-        this.setState({ imgCoord: rspCoord.rock });
-      }
-    }, 1000);
+    this.interval = setInterval(this.changeHand, 100);
   }
-
-  componentWillUpdate() {}
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
+
+  onClickBtn = (choice) => () => {
+    clearInterval(this.interval);
+    const intervalID = this.interval;
+
+    const myScore = scores[choice];
+    const cpuScore = scores[computerChoice(this.state.imgCoord)];
+    const diff = myScore - cpuScore;
+    if (diff === 0) {
+      this.setState({
+        result: "비겼습니다",
+      });
+    } else if ([-1, 2].includes(diff)) {
+      this.setState((prevState) => {
+        return { result: "이겼습니다", score: prevState.score + 1 };
+      });
+    } else {
+      this.setState((prevState) => {
+        return { result: "졌습니다", score: prevState.score - 1 };
+      });
+    }
+
+    setTimeout(() => {
+      if (intervalID === this.interval) {
+        console.log("restart");
+        this.interval = setInterval(this.changeHand, 100);
+      }
+    }, 2000);
+  };
+
+  changeHand = () => {
+    const { imgCoord } = this.state;
+
+    if (imgCoord === rspCoord.rock) {
+      this.setState({ imgCoord: rspCoord.scissor });
+    } else if (imgCoord === rspCoord.scissor) {
+      this.setState({ imgCoord: rspCoord.paper });
+    } else if (imgCoord === rspCoord.paper) {
+      this.setState({ imgCoord: rspCoord.rock });
+    }
+  };
 
   render() {
     const { result, score, imgCoord } = this.state;
@@ -52,17 +87,17 @@ class RSP extends Component {
           }}
         ></div>
         <div>
-          <button id="rock" className="btn" onClick={() => onClickBtn("바위")}>
+          <button id="rock" className="btn" onClick={this.onClickBtn("rock")}>
             바위
           </button>
           <button
             id="scissor"
             className="btn"
-            onClick={() => onClickBtn("가위")}
+            onClick={this.onClickBtn("scissor")}
           >
             가위
           </button>
-          <button id="paper" className="btn" onClick={() => onClickBtn("보")}>
+          <button id="paper" className="btn" onClick={this.onClickBtn("paper")}>
             보
           </button>
         </div>
