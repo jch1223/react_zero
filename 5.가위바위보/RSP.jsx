@@ -26,6 +26,7 @@ class RSP extends Component {
   };
 
   interval;
+  loading = false;
 
   componentDidMount() {
     this.interval = setInterval(this.changeHand, 100);
@@ -42,24 +43,32 @@ class RSP extends Component {
     const myScore = scores[choice];
     const cpuScore = scores[computerChoice(this.state.imgCoord)];
     const diff = myScore - cpuScore;
-    if (diff === 0) {
-      this.setState({
-        result: "비겼습니다",
-      });
-    } else if ([-1, 2].includes(diff)) {
-      this.setState((prevState) => {
-        return { result: "이겼습니다", score: prevState.score + 1 };
-      });
-    } else {
-      this.setState((prevState) => {
-        return { result: "졌습니다", score: prevState.score - 1 };
-      });
+
+    console.log(intervalID, this.interval);
+
+    if (!this.loading) {
+      if (diff === 0) {
+        this.setState({
+          result: "비겼습니다",
+        });
+      } else if ([-1, 2].includes(diff)) {
+        this.setState((prevState) => {
+          return { result: "이겼습니다", score: prevState.score + 1 };
+        });
+      } else {
+        this.setState((prevState) => {
+          return { result: "졌습니다", score: prevState.score - 1 };
+        });
+      }
     }
+
+    this.loading = true;
 
     setTimeout(() => {
       if (intervalID === this.interval) {
         console.log("restart");
         this.interval = setInterval(this.changeHand, 100);
+        this.loading = false;
       }
     }, 2000);
   };
