@@ -5,7 +5,7 @@ const webpack = require("webpack");
 
 module.exports = {
   name: "rsp-setting",
-  mode: "development", // 실서비스 : production
+  mode: "production", // 실서비스 : production
   devtool: "eval", // 배포시에는 hidden-source-map
   resolve: {
     extensions: [".js", ".jsx"],
