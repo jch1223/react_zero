@@ -1,8 +1,28 @@
-import React from "react";
-import { hot } from "react-hot-loader/root";
+import React, { useReducer } from "react";
+import Table from "./Table";
+import Form from "./Form";
 
-const MineSearch = () => {
-  return <div>지뢰찾기</div>;
+const initialState = {
+  tableData: [],
 };
 
-export default hot(MineSearch);
+const reducer = (state, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+const MineSearch = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      <Form />
+      <div>{state.timer}</div>
+      <Table></Table>
+      <div>{}</div>
+    </>
+  );
+};
+
+export default MineSearch;
