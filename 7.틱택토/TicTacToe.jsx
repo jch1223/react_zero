@@ -1,4 +1,10 @@
-import React, { useEffect, useReducer, useCallback } from "react";
+import React, {
+  useEffect,
+  useReducer,
+  useCallback,
+  memo,
+  useMemo,
+} from "react";
 import Table from "./Table";
 
 const initialState = {
@@ -132,4 +138,4 @@ const TicTacToe = () => {
   );
 };
 
-export default TicTacToe;
+export default memo(TicTacToe);
