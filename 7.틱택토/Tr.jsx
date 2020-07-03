@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Td from "./Td";
 
 function Tr({ rowData, rowIndex, dispatch }) {
@@ -24,4 +24,4 @@ function Tr({ rowData, rowIndex, dispatch }) {
   );
 }
 
-export default Tr;
+export default memo(Tr);
