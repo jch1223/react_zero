@@ -1,7 +1,7 @@
 import React from "react";
 
 const Td = () => {
-  return <div></div>;
+  return <td></td>;
 };
 
 export default Td;

@@ -1,7 +1,15 @@
 import React from "react";
+import Tr from "./Tr";
+import { TableContext } from "./MineSearch";
 
 const Table = () => {
-  return <div></div>;
+  const { tableData } = useContext(TableContext);
+
+  return (
+    <table>
+      <Tr />
+    </table>
+  );
 };
 
 export default Table;
