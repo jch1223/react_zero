@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Tr from "./Tr";
 import { TableContext } from "./MineSearch";
 
@@ -7,7 +7,11 @@ const Table = () => {
 
   return (
     <table>
-      <Tr />
+      {Array(tableData.length)
+        .fill()
+        .map((tr, i) => (
+          <Tr rowIndex={i} />
+        ))}
     </table>
   );
 };

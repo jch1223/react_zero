@@ -24,6 +24,20 @@ const initialState = {
   result: "",
 };
 
+export const START_GAME = "START_GAME";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "START_GAME":
+      return {
+        ...state,
+        tableData: plantMine(action.row, action.cell, action.mine),
+      };
+    default:
+      return state;
+  }
+};
+
 const plantMine = (row, cell, mine) => {
   console.log(row, cell, mine);
   const candidate = Array(row * cell)
@@ -59,20 +73,6 @@ const plantMine = (row, cell, mine) => {
 
   console.log(data);
   return data;
-};
-
-export const START_GAME = "START_GAME";
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "START_GAME":
-      return {
-        ...state,
-        tableData: plantMine(action.row, action.cell, action.mine),
-      };
-    default:
-      return state;
-  }
 };
 
 const MineSearch = () => {
