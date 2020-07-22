@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { TableContext, CODE } from "./MineSearch";
 
+let test;
+
 const getTdStyle = (code) => {
   switch (code) {
     case CODE.NORMAL:
