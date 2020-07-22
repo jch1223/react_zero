@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useMemo } from "react";
+import React, { useReducer, createContext, useMemo, useEffect } from "react";
 import Table from "./Table";
 import Form from "./Form";
 
@@ -38,6 +38,7 @@ export const CLICK_MINE = "CLICK_MINE";
 export const QUESTION_CELL = "QUESTION_CELL";
 export const FLAG_CELL = "FLAG_CELL";
 export const NORMALIZE_CELL = "NORMALIZE_CELL";
+export const INCREMENT_TIMER = "INCREMENT_TIMER";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -49,6 +50,8 @@ const reducer = (state, action) => {
           cell: action.cell,
           mine: action.mine,
         },
+        openedCount: 0,
+        timer: 0,
         tableData: plantMine(action.row, action.cell, action.mine),
         halted: false,
       };
@@ -137,9 +140,21 @@ const reducer = (state, action) => {
 
       checkAround(action.row, action.cell);
 
+      let halted = false;
+      let result = "";
+      if (
+        state.data.row * state.data.cell - state.data.mine ===
+        state.openedCount + openedCount
+      ) {
+        halted = true;
+        result = `${state.timer}초만에 승리하셨습니다`;
+      }
+
       return {
         ...state,
         tableData,
+        halted,
+        result,
         openedCount: state.openedCount + openedCount,
       };
     }
@@ -192,6 +207,12 @@ const reducer = (state, action) => {
         tableData,
       };
     }
+    case INCREMENT_TIMER: {
+      return {
+        ...state,
+        timer: state.timer + 1,
+      };
+    }
     default:
       return state;
   }
@@ -241,6 +262,18 @@ const MineSearch = () => {
     () => ({ tableData: state.tableData, halted: state.halted, dispatch }),
     [state.tableData, state.halted]
   );
+
+  useEffect(() => {
+    let timer;
+    if (!state.halted) {
+      timer = setInterval(() => {
+        dispatch({ type: INCREMENT_TIMER });
+      }, 1000);
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [state.halted]);
 
   return (
     <TableContext.Provider value={value}>
